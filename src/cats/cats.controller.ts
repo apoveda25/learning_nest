@@ -8,9 +8,11 @@ import {
   Redirect,
   Query,
   Param,
+  Body,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { of, Observable } from 'rxjs';
+import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -58,5 +60,10 @@ export class CatsController {
   @Get()
   findAllObservable(): Observable<any[]> {
     return of([]);
+  }
+
+  @Post()
+  async createWithDTO(@Body() createCatDto: CreateCatDto) {
+    return 'This action adds a new cat';
   }
 }
