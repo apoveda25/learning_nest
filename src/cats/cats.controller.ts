@@ -7,11 +7,23 @@ import {
   Header,
   Redirect,
   Query,
+  Param,
 } from '@nestjs/common';
 import { Request } from 'express';
 
 @Controller('cats')
 export class CatsController {
+  // @Get(':id')
+  // findOne(@Param() params): string {
+  //   console.log(params.id);
+  //   return `This action returns a #${params.id} cat`;
+  // }
+
+  @Get(':id')
+  findOne(@Param('id') id): string {
+    return `This action returns a #${id} cat`;
+  }
+
   @Get('docs')
   @Redirect('https://docs.nestjs.com', 302)
   getDocs(@Query('version') version) {
