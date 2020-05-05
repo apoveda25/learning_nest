@@ -10,6 +10,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { Request } from 'express';
+import { of, Observable } from 'rxjs';
 
 @Controller('cats')
 export class CatsController {
@@ -47,5 +48,15 @@ export class CatsController {
   @Get()
   findAll(@Req() request: Request): string {
     return 'This action returns all cats';
+  }
+
+  @Get()
+  async findAllAsync(): Promise<any[]> {
+    return [];
+  }
+
+  @Get()
+  findAllObservable(): Observable<any[]> {
+    return of([]);
   }
 }
