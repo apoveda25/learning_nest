@@ -8,3 +8,9 @@ import { CatsService } from './cats.service';
   exports: [CatsService],
 })
 export class CatsModule {}
+
+// @Module({
+//   imports: [CommonModule],
+//   exports: [CommonModule],
+// })
+// export class CoreModule {}
