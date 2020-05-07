@@ -7,7 +7,9 @@ import { CatsService } from './cats.service';
   providers: [CatsService],
   exports: [CatsService],
 })
-export class CatsModule {}
+export class CatsModule {
+  constructor(private catsService: CatsService) {}
+}
 
 // @Module({
 //   imports: [CommonModule],
