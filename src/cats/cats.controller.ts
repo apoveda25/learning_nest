@@ -1,26 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Injectable,
-  Optional,
-  Inject,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 
 @Controller('cats')
-@Injectable()
-export class CatsController<T> {
-  @Inject('HTTP_OPTIONS')
-  private readonly httpClient2: T;
-
-  constructor(
-    private catsService: CatsService,
-    @Optional() @Inject('HTTP_OPTIONS') private httpClient: T,
-  ) {}
+export class CatsController {
+  constructor(private catsService: CatsService) {}
 
   @Post()
   async create(@Body() createCatDto: CreateCatDto) {
