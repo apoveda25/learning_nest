@@ -14,6 +14,9 @@ import { Cat } from './interfaces/cat.interface';
 @Controller('cats')
 @Injectable()
 export class CatsController<T> {
+  @Inject('HTTP_OPTIONS')
+  private readonly httpClient2: T;
+
   constructor(
     private catsService: CatsService,
     @Optional() @Inject('HTTP_OPTIONS') private httpClient: T,
