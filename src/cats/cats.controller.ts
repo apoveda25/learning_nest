@@ -8,16 +8,18 @@ import {
   Param,
   Query,
   ParseBoolPipe,
-  DefaultValuePipe,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { ValidationPipe } from './validation.pipe';
 import { ParseIntPipe } from './parse-int.pipe';
+import { RolesGuard } from './roles.guard';
 
 @UseFilters(HttpExceptionFilter)
 @Controller('cats')
+@UseGuards(RolesGuard)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
@@ -29,9 +31,10 @@ export class CatsController {
 
   @Get()
   async findAll(
-    @Query('activeOnly', new DefaultValuePipe(false), ParseBoolPipe)
+    @Query('activeOnly', ParseBoolPipe)
     activeOnly: boolean,
-    @Query('page', new DefaultValuePipe(0), ParseIntPipe) page: number,
+    @Query('page', ParseIntPipe)
+    page: number,
   ) {
     return this.catsService.findAll({ activeOnly, page });
   }
