@@ -12,7 +12,12 @@ import { CatsModule } from './cats/cats.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(LoggerMiddleware)
-      .forRoutes(CatsController);
+    .apply(LoggerMiddleware)
+    .exclude(
+      { path: 'cats', method: RequestMethod.GET },
+      { path: 'cats', method: RequestMethod.POST },
+      'cats/(.*)',
+    )
+    .forRoutes(CatsController);
   }
 }
