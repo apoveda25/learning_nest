@@ -18,7 +18,7 @@ export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
+  @UsePipes(ValidationPipe)
   async create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
