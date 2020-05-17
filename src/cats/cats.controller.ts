@@ -16,6 +16,7 @@ import { HttpExceptionFilter } from './http-exception.filter';
 import { ValidationPipe } from './validation.pipe';
 import { ParseIntPipe } from './parse-int.pipe';
 import { RolesGuard } from './roles.guard';
+import { Roles } from './roles.decorator';
 
 @UseFilters(HttpExceptionFilter)
 @Controller('cats')
@@ -24,6 +25,7 @@ export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
+  @Roles('admin')
   @UsePipes(ValidationPipe)
   async create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
