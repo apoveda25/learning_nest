@@ -1,5 +1,5 @@
 import { Module, NestModule, RequestMethod, MiddlewareConsumer } from '@nestjs/common';
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { logger } from './common/middleware/logger.middleware';
 import { CatsController } from './cats/cats.controller';
 import { CatsService } from './cats/cats.service';
 import { CatsModule } from './cats/cats.module';
@@ -12,12 +12,7 @@ import { CatsModule } from './cats/cats.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-    .apply(LoggerMiddleware)
-    .exclude(
-      { path: 'cats', method: RequestMethod.GET },
-      { path: 'cats', method: RequestMethod.POST },
-      'cats/(.*)',
-    )
+    .apply(logger)
     .forRoutes(CatsController);
   }
 }
