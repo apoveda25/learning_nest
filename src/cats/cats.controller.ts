@@ -5,14 +5,14 @@ import { Cat } from './interfaces/cat.interface';
 import { ForbiddenException } from './forbidden.exception';
 import { HttpExceptionFilter } from './http-exception.filter';
 
+@UseFilters(HttpExceptionFilter)
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
-  @UseFilters(HttpExceptionFilter)
   async create(@Body() createCatDto: CreateCatDto) {
-    throw new ForbiddenException();
+    this.catsService.create(createCatDto);
   }
 
   @Get()
