@@ -1,4 +1,6 @@
-import { Module, NestModule, RequestMethod, MiddlewareConsumer } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import * as helmet from 'helmet';
+import {cors} from 'cors'
 import { logger } from './common/middleware/logger.middleware';
 import { CatsController } from './cats/cats.controller';
 import { CatsService } from './cats/cats.service';
@@ -11,8 +13,7 @@ import { CatsModule } from './cats/cats.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-    .apply(logger)
-    .forRoutes(CatsController);
+    consumer.apply(cors(), helmet(), logger).forRoutes(CatsController);
+
   }
 }
